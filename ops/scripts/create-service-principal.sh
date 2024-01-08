@@ -1,7 +1,5 @@
 #!/bin/bash
 
-echo -e "\n-----------------------------------------------------"
-
 # create the service principal
 create_service_principal() {
   # prompt for service principal name
@@ -38,6 +36,8 @@ create_service_principal() {
     esac
   done
 }
+
+echo -e "\n-----------------------------------------------------"
 
 # connect to start the process
 ./connect-azure.sh
