@@ -12,6 +12,21 @@ login_to_azure() {
 
 # set the subscription
 set_subscription() {
+  answer="n"
+  if az account show >/dev/null 2>&1; then
+    subscriptionNameOrId=$(az account show --query "{Name:name, ID:id}" --output table)
+    
+    echo -e "\nCurrent subscription set to: \n"
+    echo -e "${subscriptionNameOrId}"
+    echo -e "\nDo you want to use this subscription? (Y/n)"
+    read answer
+  fi
+
+  first_char=$(echo "${answer:0:1}" | tr '[:upper:]' '[:lower:]')
+  if [ "$first_char" == "y" ]; then
+    return
+  fi
+
   echo -e "\nSpecify the Id or Name of an Azure Subscription to use:"
   read subscriptionNameOrId
   if [ -z "$subscriptionNameOrId" ]; then

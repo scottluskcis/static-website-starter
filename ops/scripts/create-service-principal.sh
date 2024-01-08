@@ -16,16 +16,16 @@ create_service_principal() {
       break
       ;;
     "Existing Resource Group")
-      echo "Please enter the name of the resource group:"
+      echo -e "\nPlease enter the name of the resource group:"
       read resource_group
       az ad sp create-for-rbac --role="Contributor" --scopes="/subscriptions/$subscription_id/resourceGroups/$resource_group" --name=$sp_name
       break
       ;;
     "New Resource Group")
-      echo "Please enter the name of the resource group:"
+      echo -e "\nPlease enter the name of the resource group:"
       read resource_group
 
-      echo "Please enter the location of the resource group:"
+      echo -e "\nPlease enter the location of the resource group:"
       read location
 
       az group create --name $resource_group --location $location
@@ -44,7 +44,7 @@ echo -e "\n-----------------------------------------------------"
 
 # Check the exit status of the connect-azure.sh script
 if [ $? -ne 0 ]; then
-  echo "Failed to connect to Azure. Exiting."
+  echo -e "\nFailed to connect to Azure. Exiting."
   ./disconnect-azure.sh
   exit 1
 fi
